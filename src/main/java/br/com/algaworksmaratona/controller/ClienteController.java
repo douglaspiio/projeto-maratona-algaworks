@@ -1,26 +1,23 @@
 package br.com.algaworksmaratona.controller;
 
-import java.util.Arrays;
 import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.algaworksmaratona.model.Cliente;
+import br.com.algaworksmaratona.repository.ClienteRepository;
+import lombok.AllArgsConstructor;
 
 @RestController
+@AllArgsConstructor
 public class ClienteController {
 	
-	@PersistenceContext
-	private EntityManager manager;
+	private ClienteRepository clienteRepository;
 
 		@GetMapping("/clientes")
 		public List<Cliente> listar() {
-			return manager.createQuery("from Cliente", Cliente.class)
-					.getResultList();
+			return clienteRepository.findAll();
 			
 		}
 }
